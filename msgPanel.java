@@ -11,7 +11,7 @@ public class msgPanel extends JPanel {
   public msgPanel() { // with message id input?
     setOpaque(true);
     setBackground(Color.GRAY);
-    msg = new JLabel("Hi");
+    msg = new JLabel("Message");
     add(msg);
   }
 }
