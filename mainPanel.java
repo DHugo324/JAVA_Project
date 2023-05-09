@@ -11,6 +11,7 @@ public class mainPanel extends JPanel {
 
   public mainPanel() {
     setLayout(new GridBagLayout());
+
     BtnPanel = new BtnPanel();
 
     displayBox = new JLabel("資訊顯示處", JLabel.CENTER);

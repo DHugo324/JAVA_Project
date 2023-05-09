@@ -12,6 +12,7 @@ public class BtnPanel extends JPanel {
 
   public BtnPanel() {
     setLayout(new GridBagLayout());
+
     Btn1 = new JButton("按鈕1");
     Btn2 = new JButton("按鈕2");
     Btn3 = new JButton("按鈕3");
