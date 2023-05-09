@@ -7,20 +7,21 @@ import javax.swing.border.*;
 
 public class mainPanel extends JPanel {
   private JPanel BtnPanel;
-  private JLabel displayBox;
+  private JPanel displayPanel;
+  private JScrollPane scrollPane;
 
   public mainPanel() {
     setLayout(new GridBagLayout());
 
     BtnPanel = new BtnPanel();
 
-    displayBox = new JLabel("資訊顯示處", JLabel.CENTER);
-    displayBox.setOpaque(true);
-    displayBox.setBackground(Color.WHITE);
+    displayPanel = new displayPanel();
+    scrollPane = new JScrollPane(displayPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
     add(BtnPanel, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.VERTICAL,
         new Insets(5, 0, 0, 0), 0, 0));
-    add(displayBox, new GridBagConstraints(1, 0, 50, 3, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+    add(scrollPane, new GridBagConstraints(1, 0, 1, 3, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
         new Insets(5, 0, 5, 0), 0, 0));
   }
 }
