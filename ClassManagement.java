@@ -13,7 +13,6 @@ public class ClassManagement extends JFrame {
 
         super("Class Management");
         setLayout(new GridBagLayout());
-        ActionListener listener = new MyEventListener();
 
         topPanel = new topPanel();
         mainPanel = new mainPanel();
@@ -24,11 +23,5 @@ public class ClassManagement extends JFrame {
         add(mainPanel,
                 new GridBagConstraints(0, 3, 1, 3, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                         new Insets(0, 0, 5, 0), 0, 0));
-    }
-
-    private class MyEventListener implements ActionListener {
-
-        public void actionPerformed(ActionEvent event) {
-        }
     }
 }
