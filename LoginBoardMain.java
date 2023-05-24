@@ -9,6 +9,7 @@ import java.util.*;
 
 public class LoginBoardMain extends JFrame{
     private JPanel loginBoard;
+    private JButton loginButton;
     public static void main(String[] args){
         LoginBoardMain loginBoard = new LoginBoardMain();
         
@@ -20,15 +21,20 @@ public class LoginBoardMain extends JFrame{
         super("Login");
         setBackground(Color.PINK);
         setLayout(new GridBagLayout());
+        ActionListener listener = new MyEventListener();
+
         JPanel titlePanel = new JPanel(new GridLayout(1, 1));
         JPanel accountPanel = new JPanel(new GridLayout(2, 1));
         JPanel passwordPanel = new JPanel(new GridLayout(2, 1));
     
         JTextField accountText = new JTextField();
         accountText.setPreferredSize(new Dimension(250, 25));
-        JTextField passwordText = new JTextField();
+        JPasswordField passwordText = new JPasswordField();
         passwordText.setPreferredSize(new Dimension(250, 25));
-        JButton loginButton = new JButton("LOGIN");
+
+        loginButton = new JButton("LOGIN");
+        loginButton.addActionListener(listener);
+        
         JLabel titleLabel = new JLabel("Y o u r C l a s s");
         titleLabel.setFont(new Font("Arial", Font.PLAIN, 40));
         titlePanel.add(titleLabel);
@@ -56,5 +62,15 @@ public class LoginBoardMain extends JFrame{
     
         gbc.gridy = 3;
         add(loginButton, gbc);
+    }
+
+    private class MyEventListener implements ActionListener {
+        public ClassManagementTest go;
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == loginButton) {
+                // 跳轉到新的頁面
+                //JOptionPane.showMessageDialog(go, "跳轉到新的頁面"); // 彈出訊息框示例
+            } 
+        }
     }
 }
