@@ -1,7 +1,5 @@
 package java2023.project;
 
-import javax.print.attribute.standard.RequestingUserName;
-
 public class msg {
   private String user;
   private String date;
