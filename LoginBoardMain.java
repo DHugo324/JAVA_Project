@@ -1,4 +1,8 @@
 package java2023.project;
+import javax.tools.JavaCompiler;
+import javax.tools.ToolProvider;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,13 +68,16 @@ public class LoginBoardMain extends JFrame{
         add(loginButton, gbc);
     }
 
+
+
     private class MyEventListener implements ActionListener {
-        public ClassManagementTest go;
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == loginButton) {
-                // 跳轉到新的頁面
-                //JOptionPane.showMessageDialog(go, "跳轉到新的頁面"); // 彈出訊息框示例
-            } 
-        }
+                
+            }
+        } 
     }
+}
+
+    
 }
