@@ -18,7 +18,7 @@ public class Register implements IPaddress {
     this.passwd = passwd;
     this.nickName = nickName;
     try {
-      Class.forName("com.mysql.jdbc.Driver");
+      Class.forName("com.mysql.cj.jdbc.Driver");
       connection = DriverManager.getConnection(
           "jdbc:mysql://" + ip + "/" + dbName + "?useUnicode=true&characterEncoding=Big5",
           sqldbaccount, sqldbpass);

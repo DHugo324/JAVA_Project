@@ -14,7 +14,7 @@ public class Login implements IPaddress {
     this.name = name;
     this.passwd = passwd;
     try {
-      Class.forName("com.mysql.jdbc.Driver");
+      Class.forName("com.mysql.cj.jdbc.Driver");
       connection = DriverManager.getConnection(
           "jdbc:mysql://" + ip + "/" + dbName + "?useUnicode=true&characterEncoding=Big5",
           sqldbaccount, sqldbpass);
