@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.border.*;
+import java.io;
 
 public class BtnPanel extends JPanel {
   private final ArrayList<JButton> Btn = new ArrayList<JButton>();
