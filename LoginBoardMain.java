@@ -27,7 +27,7 @@ public class LoginBoardMain extends JFrame{
         setLayout(new GridBagLayout());
         ActionListener listener = new MyEventListener();
 
-        JPanel titlePanel = new JPanel(new GridLayout(1, 1));
+        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JPanel accountPanel = new JPanel(new GridLayout(2, 1));
         JPanel passwordPanel = new JPanel(new GridLayout(2, 1));
     
@@ -39,8 +39,13 @@ public class LoginBoardMain extends JFrame{
         loginButton = new JButton("LOGIN");
         loginButton.addActionListener(listener);
         
+        ImageIcon imageIcon = new ImageIcon("image.png"); // 替換為您的圖片路徑
+        Image image = imageIcon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(image);
+        JLabel imageLabel = new JLabel(scaledIcon);
         JLabel titleLabel = new JLabel("Y o u r C l a s s");
         titleLabel.setFont(new Font("Arial", Font.PLAIN, 40));
+        titlePanel.add(imageLabel);
         titlePanel.add(titleLabel);
         JLabel accountLabel = new JLabel("Account:");
         accountLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -73,11 +78,8 @@ public class LoginBoardMain extends JFrame{
     private class MyEventListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == loginButton) {
-                
+
             }
         } 
     }
-}
-
-    
 }
