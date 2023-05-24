@@ -3,7 +3,7 @@ import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 import java.io.File;
 import java.io.IOException;
-
+import loginSystem.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,6 +14,8 @@ import java.util.*;
 public class LoginBoardMain extends JFrame{
     private JPanel loginBoard;
     private JButton loginButton;
+    private JTextField accountText;
+    private JTextField passwordText;
     public static void main(String[] args){
         LoginBoardMain loginBoard = new LoginBoardMain();
         
@@ -31,9 +33,9 @@ public class LoginBoardMain extends JFrame{
         JPanel accountPanel = new JPanel(new GridLayout(2, 1));
         JPanel passwordPanel = new JPanel(new GridLayout(2, 1));
     
-        JTextField accountText = new JTextField();
+        accountText = new JTextField();
         accountText.setPreferredSize(new Dimension(250, 25));
-        JPasswordField passwordText = new JPasswordField();
+        passwordText = new JPasswordField();
         passwordText.setPreferredSize(new Dimension(250, 25));
 
         loginButton = new JButton("LOGIN");
@@ -76,9 +78,16 @@ public class LoginBoardMain extends JFrame{
 
 
     private class MyEventListener implements ActionListener {
+        private Login user = new Login(accountText.getText(),passwordText.getText());
         public void actionPerformed(ActionEvent e) {
+            String fail = "1234";
             if (e.getSource() == loginButton) {
-
+                if(user.selectTable()==0){
+                    JOptionPane.showMessageDialog(null, "Failed!");
+                }else{
+                    
+                    JOptionPane.showMessageDialog(null,"Success!");
+                }
             }
         } 
     }
