@@ -16,6 +16,7 @@ public class topPanel extends JPanel {
     titleLable.setOpaque(true);
     titleLable.setBackground(Color.WHITE);
     logoutBtn = new JButton("登出");
+    logoutBtn.addActionListener(new MyEventListener());
 
     add(titleLable,
         new GridBagConstraints(0, 0, 1, 1, 1, 0, GridBagConstraints.WEST, GridBagConstraints.BOTH,
@@ -23,5 +24,13 @@ public class topPanel extends JPanel {
     add(logoutBtn,
         new GridBagConstraints(1, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
             new Insets(0, 0, 0, 0), 0, 0));
+  }
+
+  private class MyEventListener implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+      if (e.getSource() == logoutBtn) {
+        System.exit(1);
+      }
+    }
   }
 }
