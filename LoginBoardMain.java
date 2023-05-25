@@ -3,7 +3,6 @@ import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 import java.io.File;
 import java.io.IOException;
-import loginSystem.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -96,39 +95,49 @@ public class LoginBoardMain extends JFrame{
 
 
     private class MyEventListener implements ActionListener {
-        //private Login user = new Login(accountText.getText(),passwordText.getText());
+        private Login user;
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == loginButton) {
-                JFrame welcome = new JFrame("Enjoying Everyday");
-                JLabel hi = new JLabel("Welcome to YourClass");
-                Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
-                int w = (int)sz.getWidth()/2;
-                int h = (int)sz.getHeight()/2;
-                hi.setHorizontalAlignment(SwingConstants.CENTER); // 將文字置中
+                user = new Login(accountText.getText(),passwordText.getText());
+                if(user.selectTable()==1){
+                    JFrame welcome = new JFrame("Enjoying Everyday");
+                    JLabel hi = new JLabel("Welcome to YourClass");
+                    Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
+                    int w = (int)sz.getWidth()/2;
+                    int h = (int)sz.getHeight()/2;
+                    hi.setHorizontalAlignment(SwingConstants.CENTER); // 將文字置中
 
-                welcome.setBackground(Color.WHITE);
-                welcome.setSize(300, 150);
-                welcome.setLocation(w-150, h-75);
-                welcome.setLayout(new GridBagLayout());
+                    welcome.setBackground(Color.WHITE);
+                    welcome.setSize(300, 150);
+                    welcome.setLocation(w-150, h-75);
+                    welcome.setLayout(new GridBagLayout());
 
-                GridBagConstraints gbc = new GridBagConstraints();
-                gbc.gridx = 0;
-                gbc.gridy = 0;
-                gbc.fill = GridBagConstraints.BOTH; // 使用所有可用空間
-                gbc.insets = new Insets(10, 10, 10, 10); // 設定間距
+                    GridBagConstraints gbc = new GridBagConstraints();
+                    gbc.gridx = 0;
+                    gbc.gridy = 0;
+                    gbc.fill = GridBagConstraints.BOTH; // 使用所有可用空間
+                    gbc.insets = new Insets(10, 10, 10, 10); // 設定間距
 
-                welcome.add(hi, gbc);
+                    welcome.add(hi, gbc);
 
-                welcome.setVisible(true);
-                dispose();
-                javax.swing.Timer timer = new javax.swing.Timer(1200, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        welcome.dispose(); // 延遲 1.2 秒後關閉視窗
-                    }
-                });
-                timer.setRepeats(false);
-                timer.start();
+                    welcome.setVisible(true);
+                    dispose();
+                    javax.swing.Timer timer = new javax.swing.Timer(1200, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            welcome.dispose(); // 延遲 1.2 秒後關閉視窗
+                        }
+                    });
+                    timer.setRepeats(false);
+                    timer.start();
+                    ClassManagement classmanagement = new ClassManagement();
+                    classmanagement.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    classmanagement.setSize(600, 500);
+                    //classmanagement.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    classmanagement.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null,"Wrong Accont or Password!!!\nPlease try again!");
+                }
             }
             else if(e.getSource()==registerButton){
                 dispose();

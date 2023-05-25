@@ -32,8 +32,8 @@ public class Register implements IPaddress {
   public int insertTable() {
     int confirm = selectTable();// 先去資料表查使用者名稱有無重複
     int flag = 0;
-    String insertdbSQL = "insert into User(id,name,nickName, passwd) " +
-        "select ifNULL(max(id),0)+1,?,?,? FROM User";
+    String insertdbSQL = "insert into User(id,name, passwd) " +
+        "select ifNULL(max(id),0)+1,?,? FROM User";
     try {
       if (confirm == 0) {// 沒有重複使用者
         pStatement = connection.prepareStatement(insertdbSQL);
@@ -93,13 +93,12 @@ public class Register implements IPaddress {
   public void creatTable_friend() {// 創建資料表
     String createdbSQL_friend = "CREATE TABLE " + name + "_friend (" +
         "    id     INTEGER " +
-        "  , name    VARCHAR(20)" +
-        "  , state VARCHAR(8))";
+        "  , name    VARCHAR(20)";
     try {
       statement = connection.createStatement();
       statement.executeUpdate(createdbSQL_friend);
     } catch (SQLException e) {
-      // System.out.println(e);
+      System.out.println(e);
     } finally {
       closedb();// 最後一定要關閉
     }

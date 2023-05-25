@@ -3,13 +3,13 @@ import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 import java.io.File;
 import java.io.IOException;
-import loginSystem.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.*;
 import javax.swing.Timer;
 import java.util.*;
+import java.lang.*;
 
 public class RegisterBoardMain extends JFrame{
     private JPanel registerBoard;
@@ -80,40 +80,31 @@ public class RegisterBoardMain extends JFrame{
         add(registerButton, gbc);
     }
 
-    public static void showMessageWithAutoClose(String message, int delayMillis) {
-        JOptionPane.showMessageDialog(null, message);
-
-        Timer timer = new Timer(delayMillis, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.getRootFrame().dispose(); // 關閉對話框
-            }
-        });
-        timer.setRepeats(false); // 只執行一次
-        timer.start();
-    }
-
 
     private class MyEventListener implements ActionListener {
-        //private Login user = new Login(accountText.getText(),passwordText.getText());
+        private Register user;
         private JTextField t = new JTextField();
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == registerButton) {
-                showMessageWithAutoClose("Registration success\nPress OK to go to LOGIN",100);
-                dispose();
-                try {
-                    // 休息兩秒
-                    Thread.sleep(500);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
+                user = new Register(newAccountText.getText(),newPassWordText.getText());
+                if(user.insertTable()==1){
+                    dispose();
+                    try {
+                        // 休息兩秒
+                        Thread.sleep(500);
+                    }catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                    LoginBoardMain loginBoard = new LoginBoardMain();
+                    Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
+                    int w = (int)sz.getWidth()/2;
+                    int h = (int)sz.getHeight()/2;
+                    loginBoard.setSize(600, 500);
+                    loginBoard.setLocation(w-300, h-250);
+                    loginBoard.setVisible(true);
+                }else{
+                    System.out.printf("FUCK!!!%n");
                 }
-                LoginBoardMain loginBoard = new LoginBoardMain();
-                Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
-                int w = (int)sz.getWidth()/2;
-                int h = (int)sz.getHeight()/2;
-                loginBoard.setSize(600, 500);
-                loginBoard.setLocation(w-300, h-250);
-                loginBoard.setVisible(true);
             }
         } 
     }
