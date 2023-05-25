@@ -1,11 +1,10 @@
 package java2023.project;
 
+import java.text.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.*;
-
-import java2023.project.BoardWrite;
 
 import java.util.*;
 
@@ -71,14 +70,19 @@ public class mainPanel extends JPanel {
   }
 
   public void addMessage(int kind) {
-    // addPanel
-    if (kind == 0) {
-      BoardWriter BoardWriter = new BoardWriter(0);
-    } else if (kind == 1) {
-      BoardWriter BoardWriter = new BoardWriter(1);
-    } else {
-      BoardWriter BoardWriter = new BoardWriter(2);
+    BoardWriter BoardWriter = new BoardWriter(kind);
+    String text = JOptionPane.showInputDialog(null, "請輸入想新增的內容：", "", JOptionPane.PLAIN_MESSAGE);
+    if (text == null || text.isEmpty()) {
+      JOptionPane.showMessageDialog(null, "新增失敗", "Failed", JOptionPane.INFORMATION_MESSAGE);
+      return;
     }
+    if (kind == 3) {
+      BoardWriter.addMessage("匿名", new SimpleDateFormat("yyyy-MM-dd").format(new Date()), text);
+    } else {
+      BoardWriter.addMessage("Default user", new SimpleDateFormat("yyyy-MM-dd").format(new Date()), text);
+    }
+    ImageIcon icon = new ImageIcon("check.png", "success");
+    JOptionPane.showMessageDialog(null, "新增成功，若未成功顯示，請重新整理。", "Successful", JOptionPane.INFORMATION_MESSAGE, icon);
   }
 
   private class MyEventListener implements ActionListener {
@@ -90,8 +94,6 @@ public class mainPanel extends JPanel {
             break;
           }
         }
-        JOptionPane pane = new JOptionPane("Success");
-        pane.showMessageDialog(null, "新增成功，若未成功顯示，請重新整理。");
       } else if (e.getSource() == refreshButton) {
         for (int i = 0; i < ButtonCnt; i++) {
           if (Btn.get(i).isEnabled() == false) {

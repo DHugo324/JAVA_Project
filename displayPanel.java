@@ -4,9 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.*;
-
-import java2023.project.BoardRead;
-
 import java.util.*;
 
 public class displayPanel extends JPanel {
@@ -25,9 +22,8 @@ public class displayPanel extends JPanel {
     msgs = boardReader.getMessages();
     int sz = msgs.size();
     for (int i = 0; i < sz; i++) {
-      msgPanel nowMsgPanel = new msgPanel();
       msg msg = msgs.get(i);
-      nowMsgPanel.setUser(msg.getUser());
+      msgPanel nowMsgPanel = new msgPanel(msg);
       msgPanels.add(nowMsgPanel);
       add(msgPanels.get(i),
           new GridBagConstraints(0, i, 1, 1, 1, 0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
