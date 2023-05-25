@@ -10,12 +10,13 @@ import javax.swing.border.*;
 import java.util.*;
 
 public class BoardReader implements Board {
+  private final String[] fileNames = { "classMessages.txt", "others.txt", "messageBoard.txt" };
   private Scanner input;
-  private String fileName = "messageBoard.txt"; // target file name
+  private String fileName = "classMessages.txt"; // target file name
   private ArrayList<msg> messages = new ArrayList<msg>();
 
-  public BoardReader(String fileName) {
-    this.fileName = fileName;
+  public BoardReader(int kind) {
+    this.fileName = fileNames[kind];
   }
 
   public ArrayList<msg> getMessages() {

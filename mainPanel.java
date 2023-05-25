@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.*;
+
+import java2023.project.BoardWrite;
+
 import java.util.*;
 
 public class mainPanel extends JPanel {
@@ -67,10 +70,26 @@ public class mainPanel extends JPanel {
     scrollPane.setViewportView(displayPanel);
   }
 
+  public void addMessage(int kind) {
+    // addPanel
+    if (kind == 0) {
+      BoardWriter BoardWriter = new BoardWriter(0);
+    } else if (kind == 1) {
+      BoardWriter BoardWriter = new BoardWriter(1);
+    } else {
+      BoardWriter BoardWriter = new BoardWriter(2);
+    }
+  }
+
   private class MyEventListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
       if (e.getSource() == addButton) {
-        // addPanel
+        for (int i = 0; i < ButtonCnt; i++) {
+          if (Btn.get(i).isEnabled() == false) {
+            addMessage(i);
+            break;
+          }
+        }
         JOptionPane pane = new JOptionPane("Success");
         pane.showMessageDialog(null, "新增成功，若未成功顯示，請重新整理。");
       } else if (e.getSource() == refreshButton) {

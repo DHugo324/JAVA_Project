@@ -9,12 +9,13 @@ import javax.swing.border.*;
 
 import java.util.*;
 
-public class BoardWrite implements Board {
+public class BoardWriter implements Board {
+  private final String[] fileNames = { "classMessages.txt", "others.txt", "messageBoard.txt" };
   private static Formatter output; // outputs text to a file
   private String fileName = "messageBoard.txt"; // target file name
 
-  public BoardWrite(String fileName) {
-    this.fileName = fileName;
+  public BoardWriter(int kind) {
+    this.fileName = fileNames[kind];
   }
 
   public void addPlayer(String user, String date, String context) {
