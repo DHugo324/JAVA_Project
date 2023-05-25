@@ -1,4 +1,4 @@
-package loginSystem;
+package java2023.project;
 
 public interface IPaddress {
   final String ip = "IP地址";
