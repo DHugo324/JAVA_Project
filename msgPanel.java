@@ -6,22 +6,22 @@ import java.awt.event.*;
 import javax.swing.border.*;
 
 public class msgPanel extends JPanel {
-  private JLabel user, date, msg;
+  private JLabel user, date, context;
 
-  public msgPanel() { // with message id input?
+  public msgPanel(msg msg) { // with message id input?
     setLayout(new GridBagLayout());
     setOpaque(true);
     setBackground(Color.GRAY);
-    user = new JLabel("user");
-    msg = new JLabel("Message");
-    date = new JLabel("date");
-    add(user,
+    this.user = new JLabel(msg.getUser());
+    this.context = new JLabel(msg.getMessage());
+    this.date = new JLabel(msg.getDate());
+    add(this.user,
         new GridBagConstraints(0, 0, 1, 1, 1, 0, GridBagConstraints.NORTHWEST, GridBagConstraints.NONE,
             new Insets(0, 0, 0, 0), 0, 0));
-    add(msg,
+    add(this.context,
         new GridBagConstraints(0, 1, 1, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 0, 0), 0, 0));
-    add(date,
+    add(this.date,
         new GridBagConstraints(0, 2, 1, 1, 1, 0, GridBagConstraints.SOUTHEAST, GridBagConstraints.NONE,
             new Insets(0, 0, 0, 0), 0, 0));
   }
@@ -31,7 +31,7 @@ public class msgPanel extends JPanel {
   }
 
   public void setMessage(String msg) {
-    this.msg.setText(msg);
+    this.context.setText(msg);
   }
 
   public void setDate(String date) {

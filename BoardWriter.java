@@ -12,13 +12,13 @@ import java.util.*;
 public class BoardWriter implements Board {
   private final String[] fileNames = { "classMessages.txt", "others.txt", "messageBoard.txt" };
   private static Formatter output; // outputs text to a file
-  private String fileName = "messageBoard.txt"; // target file name
+  private String fileName; // target file name
 
   public BoardWriter(int kind) {
     this.fileName = fileNames[kind];
   }
 
-  public void addPlayer(String user, String date, String context) {
+  public void addMessage(String user, String date, String context) {
     openFile();
     addRecord(user, date, context);
     closeFile();
