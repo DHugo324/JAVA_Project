@@ -19,10 +19,12 @@ public class LoginBoardMain extends JFrame{
     private JTextField passwordText;
     public static void main(String[] args){
         LoginBoardMain loginBoard = new LoginBoardMain();
-        loginBoard.setLocationRelativeTo(null);
-        loginBoard.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int centerX = screenSize.width/2;
+        int centerY = screenSize.height/2;
+        
         loginBoard.setSize(600, 500);
-        loginBoard.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        loginBoard.setLocation(centerX-300,centerY-250);
         loginBoard.setVisible(true);
     }
     public LoginBoardMain() {
@@ -97,15 +99,45 @@ public class LoginBoardMain extends JFrame{
         //private Login user = new Login(accountText.getText(),passwordText.getText());
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == loginButton) {
-                JOptionPane.showMessageDialog(null,"Welcome to YourClass");
+                JFrame welcome = new JFrame("Enjoying Everyday");
+                JLabel hi = new JLabel("Welcome to YourClass");
+                Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
+                int w = (int)sz.getWidth()/2;
+                int h = (int)sz.getHeight()/2;
+                hi.setHorizontalAlignment(SwingConstants.CENTER); // 將文字置中
+
+                welcome.setBackground(Color.WHITE);
+                welcome.setSize(300, 150);
+                welcome.setLocation(w-150, h-75);
+                welcome.setLayout(new GridBagLayout());
+
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridx = 0;
+                gbc.gridy = 0;
+                gbc.fill = GridBagConstraints.BOTH; // 使用所有可用空間
+                gbc.insets = new Insets(10, 10, 10, 10); // 設定間距
+
+                welcome.add(hi, gbc);
+
+                welcome.setVisible(true);
                 dispose();
+                javax.swing.Timer timer = new javax.swing.Timer(1200, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        welcome.dispose(); // 延遲 1.2 秒後關閉視窗
+                    }
+                });
+                timer.setRepeats(false);
+                timer.start();
             }
             else if(e.getSource()==registerButton){
                 dispose();
                 RegisterBoardMain registerBoard = new RegisterBoardMain();
-        
+                Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
+                int w = (int)sz.getWidth()/2;
+                int h = (int)sz.getHeight()/2;
                 registerBoard.setSize(600, 500);
-                registerBoard.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                registerBoard.setLocation(w-300, h-250);
                 registerBoard.setVisible(true);
             }
         } 

@@ -18,9 +18,11 @@ public class RegisterBoardMain extends JFrame{
     private JTextField newPassWordText;
     public static void main(String[] args){
         RegisterBoardMain registerBoard = new RegisterBoardMain();
-        
+        Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
+        int w = (int)sz.getWidth()/2;
+        int h = (int)sz.getHeight()/2;
         registerBoard.setSize(600, 500);
-        registerBoard.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        registerBoard.setLocation(w-300, h-250);
         registerBoard.setVisible(true);
     }
     public RegisterBoardMain() {
@@ -106,8 +108,11 @@ public class RegisterBoardMain extends JFrame{
                     ex.printStackTrace();
                 }
                 LoginBoardMain loginBoard = new LoginBoardMain();
+                Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
+                int w = (int)sz.getWidth()/2;
+                int h = (int)sz.getHeight()/2;
                 loginBoard.setSize(600, 500);
-                loginBoard.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                loginBoard.setLocation(w-300, h-250);
                 loginBoard.setVisible(true);
             }
         } 
