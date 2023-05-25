@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.*;
-
+import javax.swing.Timer;
 import java.util.*;
 
 public class RegisterBoardMain extends JFrame{
@@ -20,7 +20,7 @@ public class RegisterBoardMain extends JFrame{
         RegisterBoardMain registerBoard = new RegisterBoardMain();
         
         registerBoard.setSize(600, 500);
-        // classmanagement.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        registerBoard.setExtendedState(JFrame.MAXIMIZED_BOTH);
         registerBoard.setVisible(true);
     }
     public RegisterBoardMain() {
@@ -31,14 +31,16 @@ public class RegisterBoardMain extends JFrame{
 
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JPanel accountPanel = new JPanel(new GridLayout(2, 1));
-        JPanel passWordPanel = new JPanel(new GridLayout(2, 1));
+        JPanel passWordPanel = new JPanel(new GridLayout(2,1));
+        JPanel pwTextPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     
         newAccountText = new JTextField();
-        newAccountText.setPreferredSize(new Dimension(250, 25));
+        newAccountText.setPreferredSize(new Dimension(300, 35));
         newPassWordText = new JPasswordField();
-        newPassWordText.setPreferredSize(new Dimension(250, 25));
+        newPassWordText.setPreferredSize(new Dimension(300, 35));
 
         registerButton = new JButton("REGISTER");
+        registerButton.setPreferredSize(new Dimension(100, 30));
         registerButton.addActionListener(listener);
         
         ImageIcon imageIcon = new ImageIcon("image.png"); // 替換為您的圖片路徑
@@ -56,7 +58,8 @@ public class RegisterBoardMain extends JFrame{
     
         JLabel passWordLabel = new JLabel("PassWord:");
         passWordLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        passWordPanel.add(passWordLabel);
+        pwTextPanel.add(passWordLabel);
+        passWordPanel.add(pwTextPanel);
         passWordPanel.add(newPassWordText);
     
         GridBagConstraints gbc = new GridBagConstraints();
@@ -75,6 +78,18 @@ public class RegisterBoardMain extends JFrame{
         add(registerButton, gbc);
     }
 
+    public static void showMessageWithAutoClose(String message, int delayMillis) {
+        JOptionPane.showMessageDialog(null, message);
+
+        Timer timer = new Timer(delayMillis, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.getRootFrame().dispose(); // 關閉對話框
+            }
+        });
+        timer.setRepeats(false); // 只執行一次
+        timer.start();
+    }
 
 
     private class MyEventListener implements ActionListener {
@@ -82,10 +97,17 @@ public class RegisterBoardMain extends JFrame{
         private JTextField t = new JTextField();
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == registerButton) {
+                showMessageWithAutoClose("Registration success\nPress OK to go to LOGIN",100);
                 dispose();
+                try {
+                    // 休息兩秒
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
                 LoginBoardMain loginBoard = new LoginBoardMain();
                 loginBoard.setSize(600, 500);
-                // classmanagement.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                loginBoard.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 loginBoard.setVisible(true);
             }
         } 

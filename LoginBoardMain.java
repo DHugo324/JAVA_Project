@@ -14,13 +14,15 @@ import java.util.*;
 public class LoginBoardMain extends JFrame{
     private JPanel loginBoard;
     private JButton loginButton;
+    private JButton registerButton;
     private JTextField accountText;
     private JTextField passwordText;
     public static void main(String[] args){
         LoginBoardMain loginBoard = new LoginBoardMain();
-        
+        loginBoard.setLocationRelativeTo(null);
+        loginBoard.setExtendedState(JFrame.MAXIMIZED_BOTH);
         loginBoard.setSize(600, 500);
-        // classmanagement.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        loginBoard.setExtendedState(JFrame.MAXIMIZED_BOTH);
         loginBoard.setVisible(true);
     }
     public LoginBoardMain() {
@@ -32,15 +34,23 @@ public class LoginBoardMain extends JFrame{
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JPanel accountPanel = new JPanel(new GridLayout(2, 1));
         JPanel passwordPanel = new JPanel(new GridLayout(2, 1));
+        JPanel btnPanel = new JPanel(new GridLayout(1,2));
     
         accountText = new JTextField();
-        accountText.setPreferredSize(new Dimension(250, 25));
+        accountText.setPreferredSize(new Dimension(300, 35));
         passwordText = new JPasswordField();
-        passwordText.setPreferredSize(new Dimension(250, 25));
+        passwordText.setPreferredSize(new Dimension(300, 35));
 
         loginButton = new JButton("LOGIN");
+        loginButton.setPreferredSize(new Dimension(100, 30));
         loginButton.addActionListener(listener);
         
+        registerButton = new JButton("REGISTER");
+        registerButton.setPreferredSize(new Dimension(100, 30));
+        registerButton.addActionListener(listener);
+        btnPanel.add(registerButton);
+        btnPanel.add(loginButton);
+
         ImageIcon imageIcon = new ImageIcon("image.png"); // 替換為您的圖片路徑
         Image image = imageIcon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(image);
@@ -54,14 +64,17 @@ public class LoginBoardMain extends JFrame{
         accountPanel.add(accountLabel);
         accountPanel.add(accountText);
     
-        JLabel passwordLabel = new JLabel("PassWord:");
+        JLabel passwordLabel = new JLabel("Password:");
         passwordLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         passwordPanel.add(passwordLabel);
         passwordPanel.add(passwordText);
-    
+        JLabel warning = new JLabel("If you didn't have an account yet, please register");
+        warning.setFont(new Font("Arial", Font.PLAIN, 14));
+        warning.setForeground(Color.RED);
+
         GridBagConstraints gbc = new GridBagConstraints();
 
-        gbc.insets = new Insets(10, 10, 5, 10); // 設定元件間距
+        gbc.insets = new Insets(10, 10, 10, 10); // 設定元件間距
         gbc.gridx = 0;
         gbc.gridy = 0;
         add(titlePanel,gbc);
@@ -72,7 +85,10 @@ public class LoginBoardMain extends JFrame{
         add(passwordPanel, gbc);
     
         gbc.gridy = 3;
-        add(loginButton, gbc);
+        add(btnPanel, gbc);
+
+        gbc.gridy = 4;
+        add(warning,gbc);
     }
 
 
@@ -81,11 +97,16 @@ public class LoginBoardMain extends JFrame{
         //private Login user = new Login(accountText.getText(),passwordText.getText());
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == loginButton) {
+                JOptionPane.showMessageDialog(null,"Welcome to YourClass");
                 dispose();
-                LoginBoardMain loginBoard = new LoginBoardMain();
-                loginBoard.setSize(600, 500);
-                // classmanagement.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                loginBoard.setVisible(true);
+            }
+            else if(e.getSource()==registerButton){
+                dispose();
+                RegisterBoardMain registerBoard = new RegisterBoardMain();
+        
+                registerBoard.setSize(600, 500);
+                registerBoard.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                registerBoard.setVisible(true);
             }
         } 
     }
