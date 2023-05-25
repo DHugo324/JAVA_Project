@@ -78,16 +78,14 @@ public class LoginBoardMain extends JFrame{
 
 
     private class MyEventListener implements ActionListener {
-        private Login user = new Login(accountText.getText(),passwordText.getText());
+        //private Login user = new Login(accountText.getText(),passwordText.getText());
         public void actionPerformed(ActionEvent e) {
-            String fail = "1234";
             if (e.getSource() == loginButton) {
-                if(user.selectTable()==0){
-                    JOptionPane.showMessageDialog(null, "Failed!");
-                }else{
-                    
-                    JOptionPane.showMessageDialog(null,"Success!");
-                }
+                dispose();
+                LoginBoardMain loginBoard = new LoginBoardMain();
+                loginBoard.setSize(600, 500);
+                // classmanagement.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                loginBoard.setVisible(true);
             }
         } 
     }
