@@ -1,6 +1,6 @@
 package java2023.project;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Paths;
 import javax.swing.*;
 import java.awt.*;
@@ -9,21 +9,24 @@ import javax.swing.border.*;
 
 import java.util.*;
 
-public class messageBoard {
+public class BoardReader implements Board {
+  private final String[] fileNames = { "classMessages.txt", "others.txt", "messageBoard.txt" };
   private Scanner input;
-  private final String fileName = "messageBoard.txt"; // target file name
+  private String fileName = "classMessages.txt"; // target file name
   private ArrayList<msg> messages = new ArrayList<msg>();
 
-  public messageBoard() {
-    openFile();
-    readRecords();
-    closeFile();
+  public BoardReader(int kind) {
+    this.fileName = fileNames[kind];
   }
 
   public ArrayList<msg> getMessages() {
+    openFile();
+    readRecords();
+    closeFile();
     return messages;
   }
 
+  @Override
   public void openFile() {
     try {
       input = new Scanner(Paths.get(fileName));
@@ -52,6 +55,7 @@ public class messageBoard {
   } // end method readRecords
 
   // close file and terminate application
+  @Override
   public void closeFile() {
     if (input != null)
       input.close();
