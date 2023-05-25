@@ -82,7 +82,7 @@ public class RegisterBoardMain extends JFrame{
         private JTextField t = new JTextField();
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == registerButton) {
-                dispose();
+                
                 LoginBoardMain loginBoard = new LoginBoardMain();
                 loginBoard.setSize(600, 500);
                 // classmanagement.setExtendedState(JFrame.MAXIMIZED_BOTH);
