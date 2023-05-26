@@ -1,6 +1,9 @@
 package java2023.project;
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
+
+import java2023.project.BtnPanel;
+
 import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
@@ -12,17 +15,19 @@ import java.util.*;
 import java.lang.*;
 
 public class RegisterBoardMain extends JFrame{
-    private JPanel registerBoard;
+    private RegisterBoardMain registerBoard;
     private JButton registerButton;
+    private JButton backButton;
     private JTextField newAccountText;
     private JTextField newPassWordText;
+    private JTextField newAuthorization;
     public static void main(String[] args){
         RegisterBoardMain registerBoard = new RegisterBoardMain();
         Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
         int w = (int)sz.getWidth()/2;
         int h = (int)sz.getHeight()/2;
-        registerBoard.setSize(600, 500);
-        registerBoard.setLocation(w-300, h-250);
+        registerBoard.setSize(900, 750);
+        registerBoard.setLocation(w-450, h-375);
         registerBoard.setVisible(true);
     }
     public RegisterBoardMain() {
@@ -30,23 +35,56 @@ public class RegisterBoardMain extends JFrame{
         setBackground(Color.WHITE);
         setLayout(new GridBagLayout());
         ActionListener listener = new MyEventListener();
-        //還要新增--->科系班、級、權限驗證碼
+        
+        final String[]  department = {"請選擇","電機工程學系","資訊工程學系","通訊與導航工程學系","光電與材料科技學系"};
+        final String[]  classNum = {"請選擇","A","B","C","D","E","F","G"};
+        final String[]  gradeNum = {"請選擇","1","2","3","4"};
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel otherPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JPanel accountPanel = new JPanel(new GridLayout(2, 1));
         JPanel passWordPanel = new JPanel(new GridLayout(2,1));
         JPanel pwTextPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    
+        JPanel athPanel = new JPanel(new GridLayout(2, 1));
+        JPanel departPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel btnPanel = new JPanel(new GridLayout(1, 3));
+        
+        JLabel classLabel = new JLabel("Class:");
+        classLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        JLabel gradeLabel = new JLabel("Grade:");
+        gradeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        JLabel dLabel = new JLabel("Major:");
+        dLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+
+
+        JComboBox<String> cNuComboBox = new JComboBox<>(classNum);
+        cNuComboBox.setPreferredSize(new Dimension(80,30));
+        JComboBox<String> gNuComboBox = new JComboBox<>(gradeNum);
+        gNuComboBox.setPreferredSize(new Dimension(80,30));
+        JComboBox<String> dComboBox = new JComboBox<>(department);
+        dComboBox.setPreferredSize(new Dimension(230,30));
+        departPanel.add(dLabel);
+        departPanel.add(dComboBox);
+        otherPanel.add(gradeLabel);
+        otherPanel.add(gNuComboBox);
+        otherPanel.add(classLabel);
+        otherPanel.add(cNuComboBox);
+        
         newAccountText = new JTextField();
-        newAccountText.setPreferredSize(new Dimension(300, 35));
+        newAccountText.setPreferredSize(new Dimension(300, 30));
         newPassWordText = new JPasswordField();
-        newPassWordText.setPreferredSize(new Dimension(300, 35));
+        newPassWordText.setPreferredSize(new Dimension(300, 30));
+        newAuthorization = new JTextField("如果沒有擔任幹部可跳過");
+        newAuthorization.setPreferredSize(new Dimension(300,30));
 
         registerButton = new JButton("REGISTER");
         registerButton.setPreferredSize(new Dimension(100, 30));
         registerButton.addActionListener(listener);
+        backButton = new JButton("Back to Login");
+        backButton.setPreferredSize(new Dimension(115,30));
+        backButton.addActionListener(listener);
         
-        ImageIcon imageIcon = new ImageIcon("image.png"); // 替換為您的圖片路徑
-        Image image = imageIcon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        ImageIcon imageIcon = new ImageIcon("1-2.png"); // 替換為您的圖片路徑
+        Image image = imageIcon.getImage().getScaledInstance(130, 165, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(image);
         JLabel imageLabel = new JLabel(scaledIcon);
         JLabel titleLabel = new JLabel("Y o u r C l a s s");
@@ -63,48 +101,138 @@ public class RegisterBoardMain extends JFrame{
         pwTextPanel.add(passWordLabel);
         passWordPanel.add(pwTextPanel);
         passWordPanel.add(newPassWordText);
+
+        JLabel authorizationLabel = new JLabel("Authorization code:");
+        authorizationLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        athPanel.add(authorizationLabel);
+        athPanel.add(newAuthorization);
     
         GridBagConstraints gbc = new GridBagConstraints();
 
-        gbc.insets = new Insets(10, 10, 5, 10); // 設定元件間距
+        gbc.insets = new Insets(10, 10, 10, 10); // 設定元件間距
         gbc.gridx = 0;
         gbc.gridy = 0;
         add(titlePanel,gbc);
+        
         gbc.gridy = 1;
+        add(departPanel, gbc);
+        gbc.anchor = GridBagConstraints.CENTER;
+
+        gbc.gridy = 2;
+        add(otherPanel,gbc);
+        gbc.gridy = 3;
         add(accountPanel, gbc);
     
-        gbc.gridy = 2;
+        gbc.gridy = 4;
         add(passWordPanel, gbc);
     
-        gbc.gridy = 3;
-        add(registerButton, gbc);
+        gbc.gridy = 5;
+        add(athPanel,gbc);
+
+        btnPanel.add(backButton);
+        btnPanel.add(registerButton);
+        gbc.gridy = 6;
+        add(btnPanel, gbc);
+         
+
     }
 
+    public static void tryAgain(String name,String passwd){
+        JFrame welcome = new JFrame("Error!!!");
+        JLabel hi;
+        if(name.isEmpty()||passwd.isEmpty()){
+            hi = new JLabel("Name or Password can't be empty!!!");
+        }else{
+            hi = new JLabel("Duplicate Account,please try again!");
+        }
+        hi.setForeground(Color.RED);
+        Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
+        int w = (int)sz.getWidth()/2;
+        int h = (int)sz.getHeight()/2;
+        hi.setHorizontalAlignment(SwingConstants.CENTER); // 將文字置中
+
+        welcome.setBackground(Color.WHITE);
+        welcome.setSize(300, 150);
+        welcome.setLocation(w-150, h-75);
+        welcome.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.BOTH; // 使用所有可用空間
+        gbc.insets = new Insets(10, 10, 10, 10); // 設定間距
+
+                welcome.add(hi, gbc);
+
+                welcome.setVisible(true);
+                javax.swing.Timer timer = new javax.swing.Timer(2000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    welcome.dispose(); // 延遲 1.2 秒後關閉視窗
+                }
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
 
     private class MyEventListener implements ActionListener {
-        private Register user;
-        private JTextField t = new JTextField();
+        private Register user=null;
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == registerButton) {
                 user = new Register(newAccountText.getText(),newPassWordText.getText());
                 if(user.insertTable()==1){
                     dispose();
-                    try {
-                        // 休息兩秒
-                        Thread.sleep(500);
-                    }catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                    LoginBoardMain loginBoard = new LoginBoardMain();
+                    JFrame welcome = new JFrame("You did it!");
+                    JLabel hi = new JLabel("<html>Registered successfully<br>(ゝ∀･)b</html>");
                     Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
                     int w = (int)sz.getWidth()/2;
                     int h = (int)sz.getHeight()/2;
-                    loginBoard.setSize(600, 500);
-                    loginBoard.setLocation(w-300, h-250);
-                    loginBoard.setVisible(true);
-                }else{
+                    hi.setHorizontalAlignment(SwingConstants.CENTER); // 將文字置中
+
+                    welcome.setBackground(Color.WHITE);
+                    welcome.setSize(300, 150);
+                    welcome.setLocation(w-150, h-75);
+                    welcome.setLayout(new GridBagLayout());
+
+                    GridBagConstraints gbc = new GridBagConstraints();
+                    gbc.gridx = 0;
+                    gbc.gridy = 0;
+                    gbc.fill = GridBagConstraints.BOTH; // 使用所有可用空間
+                    gbc.insets = new Insets(10, 10, 10, 10); // 設定間距
+
+                    welcome.add(hi, gbc);
+
+                    welcome.setVisible(true);
+                    dispose();
+                    javax.swing.Timer timer = new javax.swing.Timer(2200, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            welcome.dispose(); // 延遲 1.2 秒後關閉視窗
+                            LoginBoardMain loginBoard = new LoginBoardMain();
+                            loginBoard.setSize(600, 500);
+                            loginBoard.setLocation(w-300, h-250);
+                            loginBoard.setVisible(true);
+                        }
+                    });
+                    timer.setRepeats(false);
+                    timer.start();
+                    
+                }
+                
+                else{
                     System.out.printf("FUCK!!!%n");
                 }
+            }
+            else if(e.getSource()==backButton){
+                    dispose();
+                    LoginBoardMain loginBoard = new LoginBoardMain();
+                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                    int centerX = screenSize.width/2;
+                    int centerY = screenSize.height/2;
+        
+                    loginBoard.setSize(600, 500);
+                    loginBoard.setLocation(centerX-300,centerY-250);
+                    loginBoard.setVisible(true);
             }
         } 
     }

@@ -101,7 +101,7 @@ public class LoginBoardMain extends JFrame{
                 user = new Login(accountText.getText(),passwordText.getText());
                 if(user.selectTable()==1){
                     JFrame welcome = new JFrame("Enjoying Everyday");
-                    JLabel hi = new JLabel("Welcome to YourClass");
+                    JLabel hi = new JLabel("<html>Welcome to YourClass<br>(“￣▽￣)-o█ █o-(￣▽￣”)/</html>");
                     Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
                     int w = (int)sz.getWidth()/2;
                     int h = (int)sz.getHeight()/2;
@@ -122,19 +122,20 @@ public class LoginBoardMain extends JFrame{
 
                     welcome.setVisible(true);
                     dispose();
-                    javax.swing.Timer timer = new javax.swing.Timer(1200, new ActionListener() {
+                    javax.swing.Timer timer = new javax.swing.Timer(1500, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            welcome.dispose(); // 延遲 1.2 秒後關閉視窗
+                            welcome.dispose(); // 延遲 1.5 秒後關閉視窗
+                            ClassManagement classmanagement = new ClassManagement();
+                            classmanagement.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                            classmanagement.setSize(600, 500);
+                            classmanagement.setLocation(w-300, h-250);
+                            //classmanagement.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                            classmanagement.setVisible(true);
                         }
                     });
                     timer.setRepeats(false);
                     timer.start();
-                    ClassManagement classmanagement = new ClassManagement();
-                    classmanagement.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    classmanagement.setSize(600, 500);
-                    //classmanagement.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                    classmanagement.setVisible(true);
                 }else{
                     JOptionPane.showMessageDialog(null,"Wrong Accont or Password!!!\nPlease try again!");
                 }
@@ -145,8 +146,8 @@ public class LoginBoardMain extends JFrame{
                 Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
                 int w = (int)sz.getWidth()/2;
                 int h = (int)sz.getHeight()/2;
-                registerBoard.setSize(600, 500);
-                registerBoard.setLocation(w-300, h-250);
+                registerBoard.setSize(900, 750);
+                registerBoard.setLocation(w-450, h-375);
                 registerBoard.setVisible(true);
             }
         } 

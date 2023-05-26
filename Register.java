@@ -35,7 +35,7 @@ public class Register implements IPaddress {
     String insertdbSQL = "insert into User(id,name, passwd) " +
         "select ifNULL(max(id),0)+1,?,? FROM User";
     try {
-      if (confirm == 0) {// 沒有重複使用者
+      if (confirm == 0&&!name.isEmpty()&&!passwd.isEmpty()) {// 沒有重複使用者
         pStatement = connection.prepareStatement(insertdbSQL);
         pStatement.setString(1, name);
         pStatement.setString(2, passwd);
@@ -44,7 +44,7 @@ public class Register implements IPaddress {
         // creatTable_chat();
         flag = 1;
       } else
-        System.out.println("重複");
+        RegisterBoardMain.tryAgain(name,passwd);
     } catch (SQLException e) {
       System.out.println(e);
     } finally {
