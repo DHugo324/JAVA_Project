@@ -9,8 +9,8 @@ import javax.swing.border.*;
 
 public class BtnPanel extends JPanel {
   private final ArrayList<JButton> Btn = new ArrayList<JButton>();
-  private final String[] BtnName = { "課程消息", "其他消息", "留言板" };
-  private final int ButtonCnt = 3;
+  private final String[] BtnName = { "課程消息", "其他消息", "留言板", "抽籤" };
+  private final int ButtonCnt = BtnName.length;
 
   public BtnPanel() {
     setLayout(new GridBagLayout());

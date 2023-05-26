@@ -13,10 +13,15 @@ public class mainPanel extends JPanel {
   private final int ButtonCnt;
   private BtnPanel BtnPanel;
   private JPanel functionPanel;
-  private displayPanel displayPanel;
+  private JPanel displayPanel;
   private JScrollPane scrollPane;
+  private JButton newButton;
   private JButton addButton;
   private JButton refreshButton;
+  private JButton deleteButton;
+  private JButton drawButton;
+  private Lottery lottery;
+  private DefaultListModel<String> optionsListModel;
 
   public mainPanel() {
     setLayout(new GridBagLayout());
@@ -27,11 +32,15 @@ public class mainPanel extends JPanel {
     setButton();
 
     Btn.get(0).setEnabled(false);
+
+    addButton();
+    optionsListModel = new DefaultListModel<>();
+    lottery = new Lottery(optionsListModel);
     functionPanel = new JPanel();
-    setFunctionPanel();
-    displayPanel = new displayPanel(0);
+    setFunctionPanel(0);
     scrollPane = new JScrollPane(displayPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
         JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    setDisplay(0);
 
     add(BtnPanel, new GridBagConstraints(0, 0, 1, 2, 0, 0, GridBagConstraints.WEST, GridBagConstraints.VERTICAL,
         new Insets(5, 0, 0, 0), 0, 0));
@@ -41,19 +50,85 @@ public class mainPanel extends JPanel {
         new Insets(0, 0, 5, 0), 0, 0));
   }
 
-  private void setFunctionPanel() {
-    functionPanel.setLayout(new GridBagLayout());
-    functionPanel.setBackground(Color.DARK_GRAY);
-    addButton = new JButton("new");
-    refreshButton = new JButton("refresh");
-    addButton.addActionListener(new MyEventListener());
-    refreshButton.addActionListener(new MyEventListener());
-    functionPanel
-        .add(addButton, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE,
-            new Insets(0, 0, 0, 0), 0, 0));
-    functionPanel
-        .add(refreshButton, new GridBagConstraints(1, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE,
-            new Insets(0, 0, 0, 0), 0, 0));
+  private void addButton() {
+    newButton = new JButton("新增");
+    refreshButton = new JButton("重新整理");
+    newButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        for (int i = 0; i < ButtonCnt; i++) {
+          if (Btn.get(i).isEnabled() == false) {
+            addMessage(i);
+            break;
+          }
+        }
+      }
+    });
+    refreshButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        for (int i = 0; i < ButtonCnt; i++) {
+          if (Btn.get(i).isEnabled() == false) {
+            setDisplay(i);
+            break;
+          }
+        }
+      }
+    });
+
+    addButton = new JButton("新增");
+    deleteButton = new JButton("刪除");
+    drawButton = new JButton("抽籤");
+    addButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        lottery.addOption();
+      }
+    });
+    deleteButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        lottery.deleteOption();
+      }
+    });
+    drawButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        lottery.drawLottery();
+      }
+    });
+  }
+
+  private void setFunctionPanel(int kind) {
+    if (kind >= 0 && kind <= 2) {
+      functionPanel.remove(addButton);
+      functionPanel.remove(deleteButton);
+      functionPanel.remove(drawButton);
+
+      functionPanel.setLayout(new GridBagLayout());
+      functionPanel.setBackground(Color.DARK_GRAY);
+      functionPanel
+          .add(addButton, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE,
+              new Insets(0, 0, 0, 0), 0, 0));
+      functionPanel
+          .add(refreshButton, new GridBagConstraints(1, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE,
+              new Insets(0, 0, 0, 0), 0, 0));
+    } else {
+      functionPanel.remove(newButton);
+      functionPanel.remove(refreshButton);
+
+      functionPanel.add(addButton,
+          new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE,
+              new Insets(0, 0, 0, 0), 0, 0));
+      functionPanel.add(deleteButton,
+          new GridBagConstraints(1, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE,
+              new Insets(0, 0, 0, 0), 0, 0));
+      functionPanel.add(drawButton,
+          new GridBagConstraints(2, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE,
+              new Insets(0, 0, 0, 0), 0, 0));
+    }
+    functionPanel.revalidate();
+    functionPanel.repaint();
   }
 
   public void setButton() {
@@ -65,8 +140,12 @@ public class mainPanel extends JPanel {
   }
 
   public void setDisplay(int kind) {
-    displayPanel = new displayPanel(kind);
-    scrollPane.setViewportView(displayPanel);
+    if (kind >= 0 && kind <= 2) {
+      displayPanel = new displayPanel(kind);
+      scrollPane.setViewportView(displayPanel);
+    } else if (kind == 3) {
+      scrollPane.setViewportView(lottery);
+    }
   }
 
   public void addMessage(int kind) {
@@ -87,28 +166,13 @@ public class mainPanel extends JPanel {
 
   private class MyEventListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
-      if (e.getSource() == addButton) {
-        for (int i = 0; i < ButtonCnt; i++) {
-          if (Btn.get(i).isEnabled() == false) {
-            addMessage(i);
-            break;
-          }
-        }
-      } else if (e.getSource() == refreshButton) {
-        for (int i = 0; i < ButtonCnt; i++) {
-          if (Btn.get(i).isEnabled() == false) {
-            setDisplay(i);
-            break;
-          }
-        }
-      } else {
-        for (int i = 0; i < ButtonCnt; i++) {
-          if (Btn.get(i) == e.getSource()) {
-            Btn.get(i).setEnabled(false);
-            setDisplay(i);
-          } else
-            Btn.get(i).setEnabled(true);
-        }
+      for (int i = 0; i < ButtonCnt; i++) {
+        if (Btn.get(i) == e.getSource()) {
+          Btn.get(i).setEnabled(false);
+          setDisplay(i);
+          setFunctionPanel(i);
+        } else
+          Btn.get(i).setEnabled(true);
       }
     }
   }
