@@ -30,7 +30,7 @@ public class RegisterBoardMain extends JFrame{
         setBackground(Color.WHITE);
         setLayout(new GridBagLayout());
         ActionListener listener = new MyEventListener();
-
+        //還要新增--->科系班、級、權限驗證碼
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JPanel accountPanel = new JPanel(new GridLayout(2, 1));
         JPanel passWordPanel = new JPanel(new GridLayout(2,1));
