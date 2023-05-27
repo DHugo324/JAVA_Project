@@ -1,5 +1,6 @@
 package java2023.project;
 
+import java.security.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -41,7 +42,7 @@ public class Lottery extends JList<String> {
   public void drawLottery() {
     int numOptions = optionsListModel.getSize();
     if (numOptions > 0) {
-      Random random = new Random();
+      SecureRandom random = new SecureRandom();
       int selectedIndex = random.nextInt(numOptions);
       setSelectedIndex(selectedIndex);
       String selectedOption = optionsListModel.getElementAt(selectedIndex);
