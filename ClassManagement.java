@@ -8,14 +8,16 @@ import javax.swing.border.*;
 public class ClassManagement extends JFrame {
         private JPanel topPanel;
         private JPanel mainPanel;
+        private user user;
 
-        public ClassManagement() {
-
+        public ClassManagement(user user) {
                 super("Class Management");
                 setLayout(new GridBagLayout());
 
-                topPanel = new topPanel();
-                mainPanel = new mainPanel();
+                this.user = user;
+
+                topPanel = new topPanel(user);
+                mainPanel = new mainPanel(user);
 
                 add(topPanel,
                                 new GridBagConstraints(0, 0, 1, 1, 1, 0, GridBagConstraints.NORTH,

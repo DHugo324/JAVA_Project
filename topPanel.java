@@ -7,22 +7,30 @@ import javax.swing.border.*;
 
 public class topPanel extends JPanel {
   private JLabel titleLable;
+  private JLabel userLable;
   private JButton logoutBtn;
+  private user user;
 
-  public topPanel() {
+  public topPanel(user user) {
     setLayout(new GridBagLayout());
+    this.user = user;
 
     titleLable = new JLabel("班級管理系統");
     titleLable.setOpaque(true);
     titleLable.setBackground(Color.WHITE);
+    userLable = new JLabel(" Hi, " + user.getID() + " ");
+    userLable.setOpaque(true);
+    userLable.setBackground(Color.WHITE);
     logoutBtn = new JButton("登出");
     logoutBtn.addActionListener(new MyEventListener());
 
     add(titleLable,
         new GridBagConstraints(0, 0, 1, 1, 1, 0, GridBagConstraints.WEST, GridBagConstraints.BOTH,
             new Insets(0, 0, 0, 0), 0, 0));
+    add(userLable, new GridBagConstraints(1, 0, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.BOTH,
+        new Insets(0, 0, 0, 0), 0, 0));
     add(logoutBtn,
-        new GridBagConstraints(1, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
+        new GridBagConstraints(2, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
             new Insets(0, 0, 0, 0), 0, 0));
   }
 

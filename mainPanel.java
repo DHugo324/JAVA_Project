@@ -15,6 +15,7 @@ public class mainPanel extends JPanel {
   private JPanel functionPanel;
   private JPanel displayPanel;
   private JScrollPane scrollPane;
+  private JComboBox<String> idChooser;
   private JButton newButton;
   private JButton addButton;
   private JButton refreshButton;
@@ -22,9 +23,12 @@ public class mainPanel extends JPanel {
   private JButton drawButton;
   private Lottery lottery;
   private DefaultListModel<String> optionsListModel;
+  private user user;
 
-  public mainPanel() {
+  public mainPanel(user user) {
     setLayout(new GridBagLayout());
+
+    this.user = user;
 
     BtnPanel = new BtnPanel();
     Btn = BtnPanel.getButton();
@@ -33,7 +37,7 @@ public class mainPanel extends JPanel {
 
     Btn.get(0).setEnabled(false);
 
-    addButton();
+    addFunction();
     optionsListModel = new DefaultListModel<>();
     lottery = new Lottery(optionsListModel);
     functionPanel = new JPanel();
@@ -50,7 +54,12 @@ public class mainPanel extends JPanel {
         new Insets(0, 0, 5, 0), 0, 0));
   }
 
-  private void addButton() {
+  private void addFunction() {
+    idChooser = new JComboBox<String>();
+    idChooser.addItem(user.getID());
+    idChooser.addItem(user.getMajor());
+    idChooser.addItem("匿名");
+    idChooser.setEditable(false);
     newButton = new JButton("新增");
     refreshButton = new JButton("重新整理");
     newButton.addActionListener(new ActionListener() {
@@ -107,13 +116,21 @@ public class mainPanel extends JPanel {
 
       functionPanel.setLayout(new GridBagLayout());
       functionPanel.setBackground(Color.DARK_GRAY);
-      functionPanel
-          .add(addButton, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE,
+      if (kind == 2)
+        idChooser.setVisible(true);
+      else
+        idChooser.setVisible(false);
+      functionPanel.add(idChooser,
+          new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE,
               new Insets(0, 0, 0, 0), 0, 0));
       functionPanel
-          .add(refreshButton, new GridBagConstraints(1, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE,
+          .add(newButton, new GridBagConstraints(1, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE,
+              new Insets(0, 0, 0, 0), 0, 0));
+      functionPanel
+          .add(refreshButton, new GridBagConstraints(2, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE,
               new Insets(0, 0, 0, 0), 0, 0));
     } else {
+      functionPanel.remove(idChooser);
       functionPanel.remove(newButton);
       functionPanel.remove(refreshButton);
 
@@ -156,9 +173,10 @@ public class mainPanel extends JPanel {
       return;
     }
     if (kind == 3) {
-      BoardWriter.addMessage("匿名", new SimpleDateFormat("yyyy-MM-dd").format(new Date()), text);
+      BoardWriter.addMessage(idChooser.getSelectedItem().toString(),
+          new SimpleDateFormat("yyyy-MM-dd").format(new Date()), text);
     } else {
-      BoardWriter.addMessage("Default user", new SimpleDateFormat("yyyy-MM-dd").format(new Date()), text);
+      BoardWriter.addMessage(user.getID(), new SimpleDateFormat("yyyy-MM-dd").format(new Date()), text);
     }
     ImageIcon icon = new ImageIcon("check.png", "success");
     JOptionPane.showMessageDialog(null, "新增成功，若未成功顯示，請重新整理。", "Successful", JOptionPane.INFORMATION_MESSAGE, icon);
