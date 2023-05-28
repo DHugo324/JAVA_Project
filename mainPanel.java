@@ -116,10 +116,16 @@ public class mainPanel extends JPanel {
 
       functionPanel.setLayout(new GridBagLayout());
       functionPanel.setBackground(Color.DARK_GRAY);
-      if (kind == 2)
+      if (kind == 2) {
         idChooser.setVisible(true);
-      else
+        newButton.setEnabled(true);
+      } else {
         idChooser.setVisible(false);
+        if (user.getAccess() != 0)
+          newButton.setEnabled(false);
+        else // 有管理權限
+          newButton.setEnabled(true);
+      }
       functionPanel.add(idChooser,
           new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE,
               new Insets(0, 0, 0, 0), 0, 0));
