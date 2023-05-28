@@ -9,6 +9,7 @@ public class Login implements IPaddress {
   private PreparedStatement pStatement = null;
   private String name;
   private String passwd;
+  private user user;
 
   public Login(String name, String passwd) {
     this.name = name;
@@ -34,6 +35,9 @@ public class Login implements IPaddress {
       while (resultSet.next()) {// 如果使用者名稱和密碼都正確
         if (resultSet.getString("name").equals(name) && resultSet.getString("passwd").equals(passwd)) {
           flag = 1;
+          // String major = resultSet.getString("major");
+          // int access = resultSet.getInt("access");
+          // user = new user(major, name, access);
         }
       }
     } catch (SQLException e) {
@@ -63,4 +67,7 @@ public class Login implements IPaddress {
     }
   }
 
+  public user getUser() {
+    return user;
+  }
 }

@@ -1,6 +1,7 @@
 package java2023.project;
 
 import java.sql.*;
+
 import java.lang.Class;
 
 public class Register implements IPaddress {
@@ -10,11 +11,15 @@ public class Register implements IPaddress {
   private ResultSet resultSet = null;
   private PreparedStatement pStatement = null;
   private String dropdbSQL = "DROP TABLE User ";
+  private user user;
   private String name;
   private String passwd;
+  // private String major;
+  // private int access;
 
   // 建構子，初始化要註冊的資料，並與資料庫取得連線
-  public Register(String name, String passwd) {
+  public Register(user user, String name, String passwd) {
+    this.user = user;
     this.name = name;
     this.passwd = passwd;
     try {
@@ -32,19 +37,22 @@ public class Register implements IPaddress {
   public int insertTable() {
     int confirm = selectTable();// 先去資料表查使用者名稱有無重複
     int flag = 0;
-    String insertdbSQL = "insert into User(id,name, passwd) " +
-        "select ifNULL(max(id),0)+1,?,? FROM User";
+    String insertdbSQL = "insert into User(id, name, passwd, major, access) " +
+        "select ifNULL(max(id),0)+1,?,?,?,? FROM User";
     try {
-      if (confirm == 0&&!name.isEmpty()&&!passwd.isEmpty()&&RegisterBoardMain.validatePassword(passwd)&&passwd.length()>=6) {// 沒有重複使用者
+      if (confirm == 0 && !name.isEmpty() && !passwd.isEmpty() && RegisterBoardMain.validatePassword(passwd)
+          && passwd.length() >= 6) { // 沒有重複使用者
         pStatement = connection.prepareStatement(insertdbSQL);
         pStatement.setString(1, name);
         pStatement.setString(2, passwd);
+        // pStatement.setString(3, user.getMajor());
+        // pStatement.setInt(4, user.getAccess());
         pStatement.executeUpdate();
         creatTable_friend();
         // creatTable_chat();
         flag = 1;
       } else
-        RegisterBoardMain.tryAgain(name,passwd);
+        RegisterBoardMain.tryAgain(name, passwd);
     } catch (SQLException e) {
       System.out.println(e);
     } finally {
