@@ -2,8 +2,6 @@ package java2023.project;
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 
-import java2023.project.BtnPanel;
-
 import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
@@ -12,6 +10,8 @@ import java.awt.event.*;
 import javax.swing.border.*;
 import javax.swing.Timer;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.lang.*;
 
 public class RegisterBoardMain extends JFrame{
@@ -136,12 +136,24 @@ public class RegisterBoardMain extends JFrame{
          
 
     }
+    public static boolean validatePassword(String password) {
+        // 正則表達式，至少包含一個小寫字母、一個大寫字母和一個數字
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+        // 使用正則表達式進行驗證
+        return matcher.matches();
+    }
 
     public static void tryAgain(String name,String passwd){
         JFrame welcome = new JFrame("Error!!!");
         JLabel hi;
         if(name.isEmpty()||passwd.isEmpty()){
             hi = new JLabel("Name or Password can't be empty!!!");
+        }else if(validatePassword(passwd)==false){
+            hi = new JLabel("<html>Password must contain at least<br>one uppercase letter,lowercase letter and digit!</html>");
+        }else if(passwd.length()<6){
+            hi = new JLabel("The password must have at least six characters!");
         }else{
             hi = new JLabel("Duplicate Account,please try again!");
         }
@@ -149,11 +161,11 @@ public class RegisterBoardMain extends JFrame{
         Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
         int w = (int)sz.getWidth()/2;
         int h = (int)sz.getHeight()/2;
-        hi.setHorizontalAlignment(SwingConstants.CENTER); // 將文字置中
-
+        hi.setHorizontalAlignment(SwingConstants.LEFT); // 將文字置中
+        hi.setFont(new Font("Arial", Font.PLAIN, 14));
         welcome.setBackground(Color.WHITE);
-        welcome.setSize(300, 150);
-        welcome.setLocation(w-150, h-75);
+        welcome.setSize(450, 225);
+        welcome.setLocation(w-225, h-113);
         welcome.setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -165,7 +177,7 @@ public class RegisterBoardMain extends JFrame{
                 welcome.add(hi, gbc);
 
                 welcome.setVisible(true);
-                javax.swing.Timer timer = new javax.swing.Timer(2000, new ActionListener() {
+                javax.swing.Timer timer = new javax.swing.Timer(2500, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     welcome.dispose(); // 延遲 1.2 秒後關閉視窗

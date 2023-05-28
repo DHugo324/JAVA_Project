@@ -35,7 +35,7 @@ public class Register implements IPaddress {
     String insertdbSQL = "insert into User(id,name, passwd) " +
         "select ifNULL(max(id),0)+1,?,? FROM User";
     try {
-      if (confirm == 0&&!name.isEmpty()&&!passwd.isEmpty()) {// 沒有重複使用者
+      if (confirm == 0&&!name.isEmpty()&&!passwd.isEmpty()&&RegisterBoardMain.validatePassword(passwd)&&passwd.length()>=6) {// 沒有重複使用者
         pStatement = connection.prepareStatement(insertdbSQL);
         pStatement.setString(1, name);
         pStatement.setString(2, passwd);
