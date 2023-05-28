@@ -128,7 +128,7 @@ public class LoginBoardMain extends JFrame {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             welcome.dispose(); // 延遲 1.5 秒後關閉視窗
-                            ClassManagement classmanagement = new ClassManagement(new user("記得修改", "這裡也是", 0));
+                            ClassManagement classmanagement = new ClassManagement(user.getUser());
                             classmanagement.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                             classmanagement.setSize(600, 500);
                             classmanagement.setLocation(w - 300, h - 250);
