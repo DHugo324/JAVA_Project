@@ -178,7 +178,7 @@ public class mainPanel extends JPanel {
       JOptionPane.showMessageDialog(null, "新增失敗", "Failed", JOptionPane.INFORMATION_MESSAGE);
       return;
     }
-    if (kind == 3) {
+    if (kind == 2) {
       BoardWriter.addMessage(idChooser.getSelectedItem().toString(),
           new SimpleDateFormat("yyyy-MM-dd").format(new Date()), text);
     } else {
