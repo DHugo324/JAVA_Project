@@ -87,7 +87,7 @@ public class RegisterBoardMain extends JFrame {
         backButton.addActionListener(listener);
 
         ImageIcon imageIcon = new ImageIcon("image.png"); // 替換為您的圖片路徑
-        Image image = imageIcon.getImage().getScaledInstance(130, 165, Image.SCALE_SMOOTH);
+        Image image = imageIcon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(image);
         JLabel imageLabel = new JLabel(scaledIcon);
         JLabel titleLabel = new JLabel("Y o u r C l a s s");
