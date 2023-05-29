@@ -197,7 +197,7 @@ public class RegisterBoardMain extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == registerButton) {
                 user user;
-                if (newAuthorization.getText() == "ntouAccess")
+                if (newAuthorization.getText().equals("ntouAccess"))
                     user = new user(dComboBox.getSelectedItem().toString(), newAccountText.getText(), 0);
                 else
                     user = new user(dComboBox.getSelectedItem().toString(), newAccountText.getText(), 1);

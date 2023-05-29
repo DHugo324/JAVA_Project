@@ -45,8 +45,8 @@ public class Register implements IPaddress {
         pStatement = connection.prepareStatement(insertdbSQL);
         pStatement.setString(1, name);
         pStatement.setString(2, passwd);
-        // pStatement.setString(3, user.getMajor());
-        // pStatement.setInt(4, user.getAccess());
+        pStatement.setString(3, user.getMajor());
+        pStatement.setInt(4, user.getAccess());
         pStatement.executeUpdate();
         creatTable_friend();
         // creatTable_chat();
