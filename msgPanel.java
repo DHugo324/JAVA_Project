@@ -13,7 +13,12 @@ public class msgPanel extends JPanel {
     setOpaque(true);
     setBackground(Color.GRAY);
     this.user = new JLabel(msg.getUser());
-    this.context = new JLabel(msg.getMessage());
+    String[] contexts = msg.getMessage().split("<br>");
+    this.context = new JLabel("<html>");
+    for (int i = 0; i < contexts.length; i++) {
+      this.context.setText(this.context.getText() + contexts[i] + "<br>");
+    }
+    this.context.setText(this.context.getText() + "</html>");
     this.date = new JLabel(msg.getDate());
     add(this.user,
         new GridBagConstraints(0, 0, 1, 1, 1, 0, GridBagConstraints.NORTHWEST, GridBagConstraints.NONE,

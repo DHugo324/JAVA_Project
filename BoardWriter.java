@@ -45,7 +45,8 @@ public class BoardWriter implements Board {
   public void addRecord(String user, String date, String context) {
     try {
       // output new record to file; assumes valid input
-      output.format("%s%n%s%n%s%n", user, date, context);
+      output.format("%s%n%s%n", user, date);
+      output.format("%s%n", context);
     } catch (FormatterClosedException formatterClosedException) {
       System.err.println("Error writing to file. Terminating.");
     }

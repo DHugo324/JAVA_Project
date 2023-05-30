@@ -254,6 +254,7 @@ public class RegisterBoardMain extends JFrame {
                 loginBoard.setSize(600, 500);
                 loginBoard.setLocation(centerX - 300, centerY - 250);
                 loginBoard.setVisible(true);
+                loginBoard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         }
     }

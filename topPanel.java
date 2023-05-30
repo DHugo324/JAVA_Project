@@ -8,10 +8,9 @@ import javax.swing.border.*;
 public class topPanel extends JPanel {
   private JLabel titleLable;
   private JLabel userLable;
-  private JButton logoutBtn;
   private user user;
 
-  public topPanel(user user) {
+  public topPanel(user user, JButton logoutBtn) {
     setLayout(new GridBagLayout());
     this.user = user;
 
@@ -21,8 +20,6 @@ public class topPanel extends JPanel {
     userLable = new JLabel(" Hi, " + user.getID() + " ");
     userLable.setOpaque(true);
     userLable.setBackground(Color.WHITE);
-    logoutBtn = new JButton("登出");
-    logoutBtn.addActionListener(new MyEventListener());
 
     add(titleLable,
         new GridBagConstraints(0, 0, 1, 1, 1, 0, GridBagConstraints.WEST, GridBagConstraints.BOTH,
@@ -34,11 +31,4 @@ public class topPanel extends JPanel {
             new Insets(0, 0, 0, 0), 0, 0));
   }
 
-  private class MyEventListener implements ActionListener {
-    public void actionPerformed(ActionEvent e) {
-      if (e.getSource() == logoutBtn) {
-        System.exit(1);
-      }
-    }
-  }
 }

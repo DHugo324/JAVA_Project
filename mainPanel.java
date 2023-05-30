@@ -47,11 +47,11 @@ public class mainPanel extends JPanel {
     setDisplay(0);
 
     add(BtnPanel, new GridBagConstraints(0, 0, 1, 2, 0, 0, GridBagConstraints.WEST, GridBagConstraints.VERTICAL,
-        new Insets(5, 0, 0, 0), 0, 0));
+        new Insets(0, 1, 0, 1), 0, 0));
     add(functionPanel, new GridBagConstraints(1, 0, 1, 1, 1, 0, GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL,
-        new Insets(5, 0, 0, 0), 0, 0));
+        new Insets(0, 1, 0, 1), 0, 0));
     add(scrollPane, new GridBagConstraints(1, 1, 1, 3, 1, 1, GridBagConstraints.SOUTH, GridBagConstraints.BOTH,
-        new Insets(0, 0, 5, 0), 0, 0));
+        new Insets(0, 1, 1, 1), 0, 0));
   }
 
   private void addFunction() {
@@ -173,7 +173,7 @@ public class mainPanel extends JPanel {
 
   public void addMessage(int kind) {
     BoardWriter BoardWriter = new BoardWriter(kind);
-    String text = JOptionPane.showInputDialog(null, "請輸入想新增的內容：", "", JOptionPane.PLAIN_MESSAGE);
+    String text = JOptionPane.showInputDialog(null, "請輸入想新增的內容：(使用\\n來換行)", "新增", JOptionPane.PLAIN_MESSAGE);
     if (text == null || text.isEmpty()) {
       JOptionPane.showMessageDialog(null, "新增失敗", "Failed", JOptionPane.INFORMATION_MESSAGE);
       return;
