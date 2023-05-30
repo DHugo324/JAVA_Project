@@ -48,8 +48,7 @@ public class Register implements IPaddress {
         pStatement.setString(3, user.getMajor());
         pStatement.setInt(4, user.getAccess());
         pStatement.executeUpdate();
-        creatTable_friend();
-        // creatTable_chat();
+        // creatTable_friend();
         flag = 1;
       } else
         RegisterBoardMain.tryAgain(name, passwd, user.getMajor());
@@ -98,17 +97,4 @@ public class Register implements IPaddress {
     }
   }
 
-  public void creatTable_friend() {// 創建資料表
-    String createdbSQL_friend = "CREATE TABLE " + name + "_friend (" +
-        "    id     INTEGER " +
-        "  , name    VARCHAR(20)";
-    try {
-      statement = connection.createStatement();
-      statement.executeUpdate(createdbSQL_friend);
-    } catch (SQLException e) {
-      System.out.println(e);
-    } finally {
-      closedb();// 最後一定要關閉
-    }
-  }
 }

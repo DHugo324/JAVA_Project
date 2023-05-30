@@ -32,6 +32,7 @@ public class RegisterBoardMain extends JFrame {
         registerBoard.setSize(900, 750);
         registerBoard.setLocation(w - 450, h - 375);
         registerBoard.setVisible(true);
+        registerBoard.setExtendedState(JFrame.MAXIMIZED_BOTH);
         registerBoard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -247,6 +248,8 @@ public class RegisterBoardMain extends JFrame {
                             loginBoard.setSize(600, 500);
                             loginBoard.setLocation(w - 300, h - 250);
                             loginBoard.setVisible(true);
+                            loginBoard.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                            loginBoard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                         }
                     });
                     timer.setRepeats(false);
@@ -267,6 +270,7 @@ public class RegisterBoardMain extends JFrame {
                 loginBoard.setSize(600, 500);
                 loginBoard.setLocation(centerX - 300, centerY - 250);
                 loginBoard.setVisible(true);
+                loginBoard.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 loginBoard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         }
