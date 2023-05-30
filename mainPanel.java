@@ -173,7 +173,7 @@ public class mainPanel extends JPanel {
 
   public void addMessage(int kind) {
     BoardWriter BoardWriter = new BoardWriter(kind);
-    String text = JOptionPane.showInputDialog(null, "請輸入想新增的內容：(使用\\n來換行)", "新增", JOptionPane.PLAIN_MESSAGE);
+    String text = JOptionPane.showInputDialog(null, "請輸入想新增的內容：(使用<br>來換行)", "新增", JOptionPane.PLAIN_MESSAGE);
     if (text == null || text.isEmpty()) {
       JOptionPane.showMessageDialog(null, "新增失敗", "Failed", JOptionPane.INFORMATION_MESSAGE);
       return;

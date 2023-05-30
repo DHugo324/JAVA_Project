@@ -133,7 +133,7 @@ public class LoginBoardMain extends JFrame {
                             classmanagement.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                             classmanagement.setSize(600, 500);
                             classmanagement.setLocation(w - 300, h - 250);
-                            // classmanagement.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                            classmanagement.setExtendedState(JFrame.MAXIMIZED_BOTH);
                             classmanagement.setVisible(true);
                         }
                     });

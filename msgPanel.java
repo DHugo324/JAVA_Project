@@ -8,17 +8,19 @@ import javax.swing.border.*;
 public class msgPanel extends JPanel {
   private JLabel user, date, context;
 
-  public msgPanel(msg msg) { // with message id input?
+  public msgPanel(msg msg) {
     setLayout(new GridBagLayout());
     setOpaque(true);
     setBackground(Color.LIGHT_GRAY);
     this.user = new JLabel(msg.getUser());
+    this.user.setFont(new Font("auto", Font.BOLD, 12));
     String[] contexts = msg.getMessage().split("<br>");
     this.context = new JLabel("<html>");
     for (int i = 0; i < contexts.length; i++) {
       this.context.setText(this.context.getText() + contexts[i] + "<br>");
     }
     this.context.setText(this.context.getText() + "</html>");
+    context.setFont(new Font(Font.DIALOG, Font.PLAIN, 16));
     this.date = new JLabel(msg.getDate());
     add(this.user,
         new GridBagConstraints(0, 0, 1, 1, 1, 0, GridBagConstraints.NORTHWEST, GridBagConstraints.NONE,
