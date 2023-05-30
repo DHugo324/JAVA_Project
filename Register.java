@@ -52,7 +52,7 @@ public class Register implements IPaddress {
         // creatTable_chat();
         flag = 1;
       } else
-        RegisterBoardMain.tryAgain(name, passwd);
+        RegisterBoardMain.tryAgain(name, passwd, user.getMajor());
     } catch (SQLException e) {
       System.out.println(e);
     } finally {

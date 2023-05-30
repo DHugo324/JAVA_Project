@@ -11,7 +11,7 @@ public class msgPanel extends JPanel {
   public msgPanel(msg msg) { // with message id input?
     setLayout(new GridBagLayout());
     setOpaque(true);
-    setBackground(Color.GRAY);
+    setBackground(Color.LIGHT_GRAY);
     this.user = new JLabel(msg.getUser());
     String[] contexts = msg.getMessage().split("<br>");
     this.context = new JLabel("<html>");

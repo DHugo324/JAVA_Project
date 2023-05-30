@@ -32,6 +32,7 @@ public class RegisterBoardMain extends JFrame {
         registerBoard.setSize(900, 750);
         registerBoard.setLocation(w - 450, h - 375);
         registerBoard.setVisible(true);
+        registerBoard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public RegisterBoardMain() {
@@ -76,7 +77,7 @@ public class RegisterBoardMain extends JFrame {
         newAccountText.setPreferredSize(new Dimension(300, 30));
         newPassWordText = new JPasswordField();
         newPassWordText.setPreferredSize(new Dimension(300, 30));
-        newAuthorization = new JTextField("如果沒有擔任幹部可跳過");
+        newAuthorization = new JPasswordField();
         newAuthorization.setPreferredSize(new Dimension(300, 30));
 
         registerButton = new JButton("REGISTER");
@@ -105,8 +106,8 @@ public class RegisterBoardMain extends JFrame {
         passWordPanel.add(pwTextPanel);
         passWordPanel.add(newPassWordText);
 
-        JLabel authorizationLabel = new JLabel("Authorization code:");
-        authorizationLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        JLabel authorizationLabel = new JLabel("Authorization code: (可跳過)");
+        authorizationLabel.setFont(new Font("auto", Font.PLAIN, 20));
         athPanel.add(authorizationLabel);
         athPanel.add(newAuthorization);
 
@@ -148,7 +149,11 @@ public class RegisterBoardMain extends JFrame {
         return matcher.matches();
     }
 
-    public static void tryAgain(String name, String passwd) {
+    public static boolean validateSelect(String major) {
+        return major != "請選擇";
+    }
+
+    public static void tryAgain(String name, String passwd, String major) {
         JFrame welcome = new JFrame("Error!!!");
         JLabel hi;
         if (name.isEmpty() || passwd.isEmpty()) {
@@ -158,6 +163,8 @@ public class RegisterBoardMain extends JFrame {
                     "<html>Password must contain at least<br>one uppercase letter,lowercase letter and digit!</html>");
         } else if (passwd.length() < 6) {
             hi = new JLabel("The password must have at least six characters!");
+        } else if (validateSelect(major)) {
+            hi = new JLabel("請選擇科系、年級、班級");
         } else {
             hi = new JLabel("Duplicate Account,please try again!");
         }
@@ -196,6 +203,12 @@ public class RegisterBoardMain extends JFrame {
 
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == registerButton) {
+                if (cNuComboBox.getSelectedItem().toString() == "請選擇"
+                        || gNuComboBox.getSelectedItem().toString() == "請選擇"
+                        || dComboBox.getSelectedItem().toString() == "請選擇") {
+                    JOptionPane.showMessageDialog(null, "請選擇科系、年級、班級", "錯誤", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 user user;
                 if (newAuthorization.getText().equals("ntouAccess"))
                     user = new user(dComboBox.getSelectedItem().toString(), newAccountText.getText(), 0);
