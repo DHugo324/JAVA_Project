@@ -35,6 +35,7 @@ public class Register implements IPaddress {
   }
 
   public int insertTable() {
+    creatTable_user();
     int confirm = selectTable();// 先去資料表查使用者名稱有無重複
     int flag = 0;
     String insertdbSQL = "insert into User(id, name, passwd, major, access) " +
@@ -48,7 +49,6 @@ public class Register implements IPaddress {
         pStatement.setString(3, user.getMajor());
         pStatement.setInt(4, user.getAccess());
         pStatement.executeUpdate();
-        // creatTable_friend();
         flag = 1;
       } else
         RegisterBoardMain.tryAgain(name, passwd, user.getMajor());
@@ -61,7 +61,7 @@ public class Register implements IPaddress {
   }
 
   public int selectTable() {
-    String selectSQL = "select * from User ";
+    String selectSQL = "select * from user ";
     int flag = 0;
     try {
       statement = connection.createStatement();
@@ -97,4 +97,20 @@ public class Register implements IPaddress {
     }
   }
 
+  public void creatTable_user() {// 創建資料表
+    String createdbSQL_user = " CREATE TABLE IF NOT EXISTS user (" +
+        "    id     INTEGER " +
+        "  , name    VARCHAR(50)" +
+        "  , passwd  VARCHAR(50)" +
+        "  , major   VARCHAR(50)" +
+        "  , access INTEGER)";
+    try {
+      statement = connection.createStatement();
+      statement.executeUpdate(createdbSQL_user);
+    } catch (SQLException e) {
+      System.out.println(e);
+    } finally {
+      closedb();// 最後一定要關閉
+    }
+  }
 }

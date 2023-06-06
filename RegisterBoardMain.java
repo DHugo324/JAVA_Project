@@ -13,7 +13,6 @@ import javax.swing.Timer;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.lang.*;
 
 public class RegisterBoardMain extends JFrame {
     private RegisterBoardMain registerBoard;
@@ -23,18 +22,6 @@ public class RegisterBoardMain extends JFrame {
     private JTextField newPassWordText;
     private JTextField newAuthorization;
     private JComboBox<String> cNuComboBox, gNuComboBox, dComboBox;
-
-    public static void main(String[] args) {
-        RegisterBoardMain registerBoard = new RegisterBoardMain();
-        Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
-        int w = (int) sz.getWidth() / 2;
-        int h = (int) sz.getHeight() / 2;
-        registerBoard.setSize(900, 750);
-        registerBoard.setLocation(w - 450, h - 375);
-        registerBoard.setVisible(true);
-        registerBoard.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        registerBoard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
 
     public RegisterBoardMain() {
         super("Register");
@@ -156,25 +143,25 @@ public class RegisterBoardMain extends JFrame {
 
     public static void tryAgain(String name, String passwd, String major) {
         JFrame welcome = new JFrame("Error!!!");
-        JLabel hi;
+        JLabel ErrorMessage;
         if (name.isEmpty() || passwd.isEmpty()) {
-            hi = new JLabel("Name or Password can't be empty!!!");
+            ErrorMessage = new JLabel("Name or Password can't be empty!!!");
         } else if (validatePassword(passwd) == false) {
-            hi = new JLabel(
+            ErrorMessage = new JLabel(
                     "<html>Password must contain at least<br>one uppercase letter,lowercase letter and digit!</html>");
         } else if (passwd.length() < 6) {
-            hi = new JLabel("The password must have at least six characters!");
+            ErrorMessage = new JLabel("The password must have at least six characters!");
         } else if (validateSelect(major)) {
-            hi = new JLabel("請選擇科系、年級、班級");
+            ErrorMessage = new JLabel("請選擇科系、年級、班級");
         } else {
-            hi = new JLabel("Duplicate Account,please try again!");
+            ErrorMessage = new JLabel("Duplicate Account,please try again!");
         }
-        hi.setForeground(Color.RED);
+        ErrorMessage.setForeground(Color.RED);
         Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
         int w = (int) sz.getWidth() / 2;
         int h = (int) sz.getHeight() / 2;
-        hi.setHorizontalAlignment(SwingConstants.LEFT); // 將文字置中
-        hi.setFont(new Font("Arial", Font.PLAIN, 14));
+        ErrorMessage.setHorizontalAlignment(SwingConstants.LEFT); // 將文字置中
+        ErrorMessage.setFont(new Font("Arial", Font.PLAIN, 14));
         welcome.setBackground(Color.WHITE);
         welcome.setSize(450, 225);
         welcome.setLocation(w - 225, h - 113);
@@ -186,7 +173,7 @@ public class RegisterBoardMain extends JFrame {
         gbc.fill = GridBagConstraints.BOTH; // 使用所有可用空間
         gbc.insets = new Insets(10, 10, 10, 10); // 設定間距
 
-        welcome.add(hi, gbc);
+        welcome.add(ErrorMessage, gbc);
 
         welcome.setVisible(true);
         javax.swing.Timer timer = new javax.swing.Timer(2500, new ActionListener() {
@@ -219,11 +206,11 @@ public class RegisterBoardMain extends JFrame {
                 if (register.insertTable() == 1) {
                     dispose();
                     JFrame welcome = new JFrame("You did it!");
-                    JLabel hi = new JLabel("<html>Registered successfully<br>(ゝ∀･)b</html>");
+                    JLabel welcomeMessage = new JLabel("<html>Registered successfully<br>(ゝ∀･)b</html>");
                     Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
                     int w = (int) sz.getWidth() / 2;
                     int h = (int) sz.getHeight() / 2;
-                    hi.setHorizontalAlignment(SwingConstants.CENTER); // 將文字置中
+                    welcomeMessage.setHorizontalAlignment(SwingConstants.CENTER); // 將文字置中
 
                     welcome.setBackground(Color.WHITE);
                     welcome.setSize(300, 150);
@@ -236,7 +223,7 @@ public class RegisterBoardMain extends JFrame {
                     gbc.fill = GridBagConstraints.BOTH; // 使用所有可用空間
                     gbc.insets = new Insets(10, 10, 10, 10); // 設定間距
 
-                    welcome.add(hi, gbc);
+                    welcome.add(welcomeMessage, gbc);
 
                     welcome.setVisible(true);
                     dispose();
@@ -258,7 +245,7 @@ public class RegisterBoardMain extends JFrame {
                 }
 
                 else {
-                    System.out.printf("FUCK!!!%n");
+                    System.out.printf("BUG!!!%n");
                 }
             } else if (e.getSource() == backButton) {
                 dispose();
@@ -274,5 +261,17 @@ public class RegisterBoardMain extends JFrame {
                 loginBoard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        RegisterBoardMain registerBoard = new RegisterBoardMain();
+        Dimension sz = Toolkit.getDefaultToolkit().getScreenSize();
+        int w = (int) sz.getWidth() / 2;
+        int h = (int) sz.getHeight() / 2;
+        registerBoard.setSize(900, 750);
+        registerBoard.setLocation(w - 450, h - 375);
+        registerBoard.setVisible(true);
+        registerBoard.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        registerBoard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
