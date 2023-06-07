@@ -10,7 +10,7 @@ import javax.swing.border.*;
 import java.util.*;
 
 public class BoardWriter implements Board {
-  private final String[] fileNames = { "classMessages.txt", "others.txt", "messageBoard.txt" };
+  private final String[] fileNames = { "useLib\\classMessages.txt", "useLib\\others.txt", "useLib\\messageBoard.txt" };
   private static Formatter output; // outputs text to a file
   private String fileName; // target file name
 

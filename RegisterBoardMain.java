@@ -75,7 +75,7 @@ public class RegisterBoardMain extends JFrame {
         backButton.setPreferredSize(new Dimension(115, 30));
         backButton.addActionListener(listener);
 
-        ImageIcon imageIcon = new ImageIcon("image.png"); // 替換為您的圖片路徑
+        ImageIcon imageIcon = new ImageIcon("useLib\\image.png"); // 替換為您的圖片路徑
         Image image = imageIcon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(image);
         JLabel imageLabel = new JLabel(scaledIcon);

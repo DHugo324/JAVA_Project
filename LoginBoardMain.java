@@ -57,7 +57,7 @@ public class LoginBoardMain extends JFrame {
         btnPanel.add(registerButton);
         btnPanel.add(loginButton);
 
-        ImageIcon imageIcon = new ImageIcon("image.png"); // 替換為您的圖片路徑
+        ImageIcon imageIcon = new ImageIcon("useLib\\image.png"); // 替換為您的圖片路徑
         Image image = imageIcon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(image);
         JLabel imageLabel = new JLabel(scaledIcon);
